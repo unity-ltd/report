@@ -1,0 +1,73 @@
+{
+  "port": 8370,
+  "workers": 0,
+  "stickyCluster": false,
+  "startServerTimeout": 3000,
+  "reloadSignal": "SIGUSR2",
+  "processKillTimeout": 10000,
+  "jsonpCallbackField": "callback",
+  "jsonContentType": "application/json",
+  "jsonpContentType": "application/javascript",
+  "errnoField": "errno",
+  "errmsgField": "errmsg",
+  "defaultErrno": 1000,
+  "validateDefaultErrno": 1001,
+  "view": {
+    "type": "nunjucks",
+    "nunjucks": {
+      "viewPath": "/home/ubuntu/SmartInspec/web/InspectonProjectV3/view",
+      "sep": "_",
+      "extname": ".html"
+    }
+  },
+  "cache": {
+    "type": "file",
+    "file": {
+      "timeout": 86400000,
+      "cachePath": "/home/ubuntu/SmartInspec/web/InspectonProjectV3/cache",
+      "pathDepth": 1,
+      "gcInterval": 86400000
+    }
+  },
+  "session": {
+    "type": "file",
+    "file": {
+      "cookie": {
+        "name": "thinkjs"
+      },
+      "sessionPath": "/home/ubuntu/SmartInspec/web/InspectonProjectV3/runtime/session"
+    }
+  },
+  "logger": {
+    "type": "dateFile",
+    "console": {},
+    "file": {
+      "backups": 10,
+      "absolute": true,
+      "maxLogSize": 51200,
+      "filename": "/home/ubuntu/SmartInspec/web/InspectonProjectV3/logs/app.log"
+    },
+    "dateFile": {
+      "level": "ALL",
+      "absolute": true,
+      "pattern": "-yyyy-MM-dd",
+      "alwaysIncludePattern": true,
+      "filename": "/home/ubuntu/SmartInspec/web/InspectonProjectV3/logs/app.log"
+    }
+  },
+  "model": {
+    "type": "mysql",
+    "mysql": {
+      "logConnect": true,
+      "logSql": true,
+      "database": "house_report",
+      "prefix": "",
+      "encoding": "utf8",
+      "host": "127.0.0.1",
+      "port": "3306",
+      "user": "house",
+      "password": "UnityLtd7171",
+      "dateStrings": true
+    }
+  }
+}

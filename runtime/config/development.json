@@ -1,0 +1,59 @@
+{
+  "port": 8370,
+  "workers": 1,
+  "stickyCluster": false,
+  "startServerTimeout": 3000,
+  "reloadSignal": "SIGUSR2",
+  "processKillTimeout": 10000,
+  "jsonpCallbackField": "callback",
+  "jsonContentType": "application/json",
+  "jsonpContentType": "application/javascript",
+  "errnoField": "errno",
+  "errmsgField": "errmsg",
+  "defaultErrno": 1000,
+  "validateDefaultErrno": 1001,
+  "__esModule": true,
+  "view": {
+    "type": "nunjucks",
+    "nunjucks": {
+      "viewPath": "C:\\home\\ubuntu\\unity-ltd\\report\\view",
+      "sep": "_",
+      "extname": ".html"
+    }
+  },
+  "cache": {
+    "type": "file",
+    "file": {
+      "timeout": 86400000,
+      "cachePath": "C:\\home\\ubuntu\\unity-ltd\\report\\runtime\\cache",
+      "pathDepth": 1,
+      "gcInterval": 86400000
+    }
+  },
+  "session": {
+    "type": "file",
+    "file": {
+      "cookie": {
+        "name": "thinkjs"
+      },
+      "sessionPath": "C:\\home\\ubuntu\\unity-ltd\\report\\runtime\\session"
+    }
+  },
+  "logger": {
+    "type": "console",
+    "console": {},
+    "file": {
+      "backups": 10,
+      "absolute": true,
+      "maxLogSize": 51200,
+      "filename": "C:\\home\\ubuntu\\unity-ltd\\report\\logs\\app.log"
+    },
+    "dateFile": {
+      "level": "ALL",
+      "absolute": true,
+      "pattern": "-yyyy-MM-dd",
+      "alwaysIncludePattern": true,
+      "filename": "C:\\home\\ubuntu\\unity-ltd\\report\\logs\\app.log"
+    }
+  }
+}

@@ -1,0 +1,2 @@
+* 22 * * * /home/ubuntu/SmartInspec/web/InspectonProjectV3/scripts/backupDatabase.sh
+* 22 * * * /home/ubuntu/SmartInspec/web/InspectonProjectV3/scripts/backupAssets.sh

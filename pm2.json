@@ -1,0 +1,20 @@
+{
+  "apps": [{
+    "name": "Reporter",
+    "script": "production.js",
+    "cwd": "/home/ubuntu/unity-ltd/api",
+    "log_date_format": "YYYY-MM-DD HH:mm Z",
+    "error_file": "/home/ubuntu/unity-ltd/api/logs/stderr.log",
+    "out_file": "/home/ubuntu/unity-ltd/api/logs/stdout.log",
+    "merge_logs": true,
+    "exec_mode": "fork",
+    "max_memory_restart": "1G",
+    "autorestart": true,
+    "cron_restart": "59 23 * * *",
+    "node_args": [],
+    "args": [],
+    "env": {
+
+    }
+  }]
+}
