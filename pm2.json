@@ -2,10 +2,10 @@
   "apps": [{
     "name": "Reporter",
     "script": "production.js",
-    "cwd": "/home/ubuntu/unity-ltd/api",
+    "cwd": "/home/ubuntu/unity-ltd/report",
     "log_date_format": "YYYY-MM-DD HH:mm Z",
-    "error_file": "/home/ubuntu/unity-ltd/api/logs/stderr.log",
-    "out_file": "/home/ubuntu/unity-ltd/api/logs/stdout.log",
+    "error_file": "/home/ubuntu/unity-ltd/report/logs/stderr.log",
+    "out_file": "/home/ubuntu/unity-ltd/report/logs/stdout.log",
     "merge_logs": true,
     "exec_mode": "fork",
     "max_memory_restart": "1G",

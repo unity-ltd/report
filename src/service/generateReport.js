@@ -9,7 +9,7 @@ module.exports = class extends think.Service {
 
   async writeReport(dataForReport) {
     console.log("writeReport", dataForReport)
-    const { account, task, contacts, askedConvertToPDF } = dataForReport
+    const { task, contacts } = dataForReport
     const pathHelper = think.service('pathHelper');
 
     const docxInstance = officegen('docx');
@@ -22,22 +22,30 @@ module.exports = class extends think.Service {
 
     await this.writeReportContent(docxInstance, dataForReport)
 
-    task.report_file = `${moment().unix()}.docx`
-    const reportPath = await pathHelper.getLocalPath(task, 'reports')
-    const reportTmpPath = await pathHelper.getLocalTmpPath(task, 'reports')
+    const report_file = `${moment().unix()}.docx`
+    const reportPath = await pathHelper.getLocalPath(task, 'reports', report_file)
+    const reportTmpPath = await pathHelper.getLocalTmpPath(task, 'reports', report_file)
     // pathHelper.update(account, task)
 
     const out = fs.createWriteStream(reportTmpPath);
     out.on('close', async () => {
       console.log('archve.close', {reportPath})
       pathHelper.moveFile(reportTmpPath, reportPath)
+      task.report_file = report_file
+      task.status = 8
       try {
         const url = process.env.API_URL + 'task/reportDone';
-        const response = await axios.post(url, task)
-        if (response.data.errno !== 0) {
+        const response = await axios.post(url, {
+          id: task.id,
+          report_file: task.report_file,
+          status: task.status
+        })
+        if (response.status >= 400) {
           throw response.data
         }
+        console.log('task/reportDone successfully', {reportPath})
       } catch (error) {
+        console.log({errno: 1000, data: error})
         return ({errno: 1000, data: error});
       }
 
