@@ -1,4 +1,5 @@
 'use strict';
+import axios from 'axios'
 import moment from 'moment';
 import { think } from 'thinkjs';
 
@@ -39,6 +40,7 @@ module.exports = class extends think.Service {
 
     const mailService = think.service('sendMail');
     const transport = mailService.getTransport().inspection;
+    const sentContacts = [];
     for (const contact of contacts) {
       if (contact && contact.email) {
         const options = {
@@ -63,10 +65,29 @@ module.exports = class extends think.Service {
           const res = await mailService.sendAsync(transport, options);
           const end = moment().unix()
           console.log(`${attachmentName} sent to ${contact.email}in ${end-start} seconds`);
+          sentContacts.push(contact);
         } catch (error) {
           console.log(`Failed to send Inspection`, error);
         }
       }
+    }
+    const houseOwnerSent = sentContacts.find(c => c.role === 'Owner');
+    if (houseOwnerSent) {
+      task.status = 9;
+    }
+    try {
+      const url = process.env.API_URL + 'task/reportSent';
+      const response = await axios.post(url, {
+        id: task.id,
+        status: task.status
+      })
+      if (response.status >= 400) {
+        throw response.data
+      }
+      console.log('task/reportSent successfully')
+    } catch (error) {
+      console.log({errno: 1000, data: error})
+      return ({errno: 1000, data: error});
     }
   }
 }
