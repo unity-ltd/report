@@ -8,7 +8,7 @@ import moment from 'moment'
 module.exports = class extends think.Service {
 
   async writeReport(dataForReport) {
-    console.log("writeReport", dataForReport)
+    // console.log("writeReport", dataForReport)
     const { task, contacts } = dataForReport
     const pathHelper = think.service('pathHelper');
 
@@ -38,7 +38,6 @@ module.exports = class extends think.Service {
         const response = await axios.post(url, {
           id: task.id,
           report_file: task.report_file,
-          status: task.status
         })
         if (response.status >= 400) {
           throw response.data
@@ -53,7 +52,7 @@ module.exports = class extends think.Service {
         const issueReport = think.service('issueReport')
         if (issueReport && issueReport.issueReport) {
           console.log('find issueReport.issueReport', {task})
-          issueReport.issueReport(dataForIssue)
+          issueReport.issueReport(dataForReport)
         }
       }
     });

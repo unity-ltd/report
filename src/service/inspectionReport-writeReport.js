@@ -85,11 +85,11 @@ module.exports = class extends think.Service {
     // pObj.addHorizontalLine();
 
     // Summary
-    if (house_data.summary) {
+    if (task.summary || house_data.summary) {
       var pObj = docx.createP();
       pObj.addText('Summary', { bold: true, font_face: 'Arial', font_size: 30 });
       pObj = docx.createP();
-      pObj.addText(house_data.summary, { font_face: 'Arial', font_size: 20 });
+      pObj.addText(task.summary || house_data.summary, { font_face: 'Arial', font_size: 20 });
     }
     // console.log('In reporting: ', house_data)
 

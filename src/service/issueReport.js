@@ -71,15 +71,11 @@ module.exports = class extends think.Service {
         }
       }
     }
-    const houseOwnerSent = sentContacts.find(c => c.role === 'Owner');
-    if (houseOwnerSent) {
-      task.status = 9;
-    }
     try {
       const url = process.env.API_URL + 'task/reportSent';
       const response = await axios.post(url, {
-        id: task.id,
-        status: task.status
+        task_id: task.id,
+        contacts: sentContacts
       })
       if (response.status >= 400) {
         throw response.data
