@@ -1,9 +1,9 @@
-import { join } from 'path';
-import Application from 'thinkjs';
+const path = require('path');
+const Application = require('thinkjs');
 
 const instance = new Application({
   ROOT_PATH: __dirname,
-  APP_PATH: join(__dirname, 'app'),
+  APP_PATH: path.join(__dirname, 'app'),
   proxy: true, // use proxy
   env: 'production'
 });

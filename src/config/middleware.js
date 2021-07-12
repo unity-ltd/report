@@ -1,8 +1,7 @@
-import { join } from 'path';
+const path = require('path');
 const isDev = think.env === 'development';
-import cors from 'koa2-cors';
-
-export default [
+const cors = require('koa2-cors')
+module.exports = [
   {
     handle: 'meta',
     options: {
@@ -10,17 +9,17 @@ export default [
       sendResponseTime: isDev
     }
   },
-  {
-    handle: cors,
-    options: {
-      exposeHeaders: ["token", "account_id"]
-    }
-  },
+    {
+        handle:cors,
+        options: {
+            exposeHeaders: ["token", "account_id"]
+        }
+    },
   {
     handle: 'resource',
     enable: true,
     options: {
-      root: join(think.ROOT_PATH, 'www'),
+      root: path.join(think.ROOT_PATH, 'www'),
       publicPath: /^\/(static|favicon\.ico)/
     }
   },
