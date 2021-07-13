@@ -24,11 +24,15 @@ module.exports = class extends think.Service {
     if (convertor && convertor.convertPDF && askedConvertToPDF) {
       if (ext.toLowerCase() === 'docx' || ext.toLowerCase() === 'doc') {
         console.log(`Converting doc to pdf`)
-        const start = moment().unix()
-        localPath = await convertor.convertPDF(localPath);
-        ext = 'pdf'
-        const end = moment().unix()
-        console.log(`convertor.convertPDF ${end-start} seconds`, {localPath})
+        try {
+          const start = moment().unix()
+          localPath = await convertor.convertPDF(localPath);
+          ext = 'pdf'
+          const end = moment().unix()
+          console.log(`convertor.convertPDF ${end-start} seconds`, {localPath})
+        } catch (error) {
+          console.log(`convertor.convertPDF error:`, error.message)
+        }
       }
     }
 

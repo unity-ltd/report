@@ -36,8 +36,8 @@ module.exports = class extends think.Service {
       try {
         const url = process.env.API_URL + 'task/reportDone';
         const response = await axios.post(url, {
-          id: task.id,
-          report_file: task.report_file,
+          task_id: task.id,
+          report_file
         })
         if (response.status >= 400) {
           throw response.data
