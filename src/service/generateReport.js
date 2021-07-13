@@ -51,7 +51,7 @@ module.exports = class extends think.Service {
       if (contacts && contacts.length > 0) {
         const issueReport = think.service('issueReport')
         if (issueReport && issueReport.issueReport) {
-          console.log('find issueReport.issueReport', {task})
+          // console.log('find issueReport.issueReport', {task})
           issueReport.issueReport(dataForReport)
         }
       }
@@ -63,6 +63,7 @@ module.exports = class extends think.Service {
 
   async writeReportContent(docxInstance, dataForReport) {
     const { task } = dataForReport
+    // console.log({dataForReport})
     const writeReport = this.getReportingService(task, 'writeReport')
     return await writeReport.writeReport(docxInstance, dataForReport)
   }
