@@ -1,5 +1,6 @@
 export default class extends think.Controller {
   indexAction() {
+    return this.success('Service port is READY')
   }
 
   async createAction() {

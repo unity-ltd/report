@@ -86,6 +86,7 @@ module.exports = class extends think.Service {
 
     // Summary
     if (task.summary || house_data.summary) {
+      docx.addPageBreak();
       var pObj = docx.createP();
       pObj.addText('Summary', { bold: true, font_face: 'Arial', font_size: 30 });
       pObj = docx.createP();
@@ -94,6 +95,7 @@ module.exports = class extends think.Service {
     // console.log('In reporting: ', house_data)
 
     let rooms = house_data.room || [];
+    // console.log('rooms: ', rooms)
     this._addRooms(docx, task, rooms);
 
     docx.addPageBreak()
@@ -135,38 +137,21 @@ module.exports = class extends think.Service {
     }
     docx.addPageBreak()
 
-    var roomIndex = 0;
+    // console.log('start rooms')
     for (const room of rooms) {
         let areas = room.areas;
-        let isEmpty = true;
-        // console.log("generate report room = ", room.name, areas);
-          // 判断该Room下area是否都是空的
-        for (const area of areas) {
-            if (!think.isEmpty(area.status) || !think.isEmpty(area.note) || area.img.length != 0) {
-                isEmpty = false;
-            }
-        }
-        if (isEmpty) {
-          // console.log('room is empty', room);
-          continue;
-        }
-
-        if (roomIndex > 0) {
-            // 分页
-            docx.addPageBreak();
-        }
-        roomIndex++;
+        console.log("generate report room = ", room.name);
         // 添加 Room 名称
         var pObj = docx.createP();
         pObj.addText(room.name, { bold: true, font_face: 'Arial', font_size: 20 });
+        console.log(room.name)
 
         // 添加 Area 信息 图片信息
-        var areaIndex = 0;
         for (const area of areas) {
           // console.log("generate report area = ", {area});
-          if (think.isEmpty(area.status) && think.isEmpty(area.note) && area.img.length == 0) {
-                continue;
-            }
+          // if (think.isEmpty(area.status) && think.isEmpty(area.note) && area.img.length == 0) {
+          //       continue;
+          //   }
             var pObj = docx.createP();
             pObj.addLineBreak()
             pObj.addLineBreak()
@@ -220,23 +205,6 @@ module.exports = class extends think.Service {
 
             // 水平分割线
             pObj = docx.createP()
-
-            areaIndex++;
-            // if (roomIndex == 1) {
-            //     if (areaIndex == 1) {
-            //         // 分页
-            //         docx.addPageBreak();
-            //     }
-            //     if (areaIndex != 1 && areaIndex % 2 != 0 && areas.length != areaIndex) {
-            //         // 分页
-            //         docx.addPageBreak();
-            //     }
-            // } else {
-            //     if (areaIndex % 2 == 0) {
-            //         // 分页
-            //         docx.addPageBreak();
-            //     }
-            // }
         }
     }
   }
