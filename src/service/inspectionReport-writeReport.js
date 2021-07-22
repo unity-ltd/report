@@ -84,15 +84,45 @@ module.exports = class extends think.Service {
     // var pObj = docx.createP();
     // pObj.addHorizontalLine();
 
-    // Summary
-    if (task.summary || house_data.summary) {
-      docx.addPageBreak();
-      var pObj = docx.createP();
-      pObj.addText('Summary', { bold: true, font_face: 'Arial', font_size: 30 });
-      pObj = docx.createP();
-      pObj.addText(task.summary || house_data.summary, { font_face: 'Arial', font_size: 20 });
+    docx.addPageBreak();
+    var pObj = docx.createP();
+    pObj.addText('Dear Property Owner', { bold: true, font_face: 'Arial', font_size: 30 });
+    var pObj = docx.createP();
+    pObj.addText('A property inspection has been performed at your property. This letter includes all photos and comments that were made on-site.');
+
+    let summary = house_data.summary;
+    if (!summary) {
+      try {
+        var summaryObj = JSON.parse(task.summary)
+        if (summaryObj && summaryObj.description) {
+          summary = summaryObj.description;
+        }
+      } catch (e) {
+        summary = task.summary;
+      }
     }
-    // console.log('In reporting: ', house_data)
+    if (summary) {
+      var pObj = docx.createP();
+      pObj.addText('There is a summary of this inspection:');
+      pObj.addText(summary);
+    }
+
+    var pObj = docx.createP();
+    pObj.addText('If there is anything you would like to discuss in regards to the inspection, please don\'t hesitate to contact our agency.');
+
+    var pObj = docx.createP();
+    pObj.addText('Kind regards,');
+
+    var pObj = docx.createP();
+    pObj.addText('Your Property Manager');
+
+    const pm = task.house? task.house.pm : null;
+    if (pm) {
+      var pObj = docx.createP();
+      pObj.addText(pm.account);
+      pObj.addText(pm.phone);
+      pObj.addText(pm.email);
+    }
 
     let rooms = house_data.room || [];
     // console.log('rooms: ', rooms)
