@@ -74,6 +74,7 @@ module.exports = class extends think.Service {
     // 上次查房日期
     var pObj = docx.createP();
     pObj.addText('Last inspection date : ');
+    console.log({lastInspection})
     if (lastInspection) {
       pObj.addText(moment(lastInspection.timestamp * 1000).format('D MMM YYYY'), { bold: true, underline: true });
     } else {
@@ -86,7 +87,7 @@ module.exports = class extends think.Service {
 
     docx.addPageBreak();
     var pObj = docx.createP();
-    pObj.addText('Dear Property Owner', { bold: true, font_face: 'Arial', font_size: 30 });
+    pObj.addText('Dear Property Owner,', { bold: true, font_face: 'Arial', font_size: 24 });
     var pObj = docx.createP();
     pObj.addText('A property inspection has been performed at your property. This letter includes all photos and comments that were made on-site.');
 
@@ -165,19 +166,19 @@ module.exports = class extends think.Service {
         pObj.addText(action);
       }
     }
-    docx.addPageBreak()
 
     // console.log('start rooms')
     for (const room of rooms) {
-        let areas = room.areas;
+      docx.addPageBreak()
+      let areas = room.areas;
         console.log("generate report room = ", room.name);
         // 添加 Room 名称
         var pObj = docx.createP();
         pObj.addText(room.name, { bold: true, font_face: 'Arial', font_size: 20 });
-        console.log(room.name)
 
         // 添加 Area 信息 图片信息
         for (const area of areas) {
+          console.log(area.area)
           // console.log("generate report area = ", {area});
           // if (think.isEmpty(area.status) && think.isEmpty(area.note) && area.img.length == 0) {
           //       continue;
