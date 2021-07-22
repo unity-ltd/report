@@ -67,7 +67,7 @@ module.exports = class extends think.Service {
     // 租金信息和交租频率
     var pObj = docx.createP();
     pObj.addText('Inspection frequency : ');
-    pObj.addText(house_data.frequency + ' month', {
+    pObj.addText(house_data.frequency || 3 + ' month', {
         bold: true,
         underline: true
     });
@@ -75,7 +75,7 @@ module.exports = class extends think.Service {
     var pObj = docx.createP();
     pObj.addText('Last inspection date : ');
     if (lastInspection) {
-      pObj.addText(moment.unix(lastInspection.timestamp).format('D MMM YYYY'), { bold: true, underline: true });
+      pObj.addText(moment(lastInspection.timestamp * 1000).format('D MMM YYYY'), { bold: true, underline: true });
     } else {
       pObj.addText('N/A', { bold: true, underline: true });
     }
